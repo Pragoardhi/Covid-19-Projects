@@ -11,16 +11,6 @@ import retrofit2.http.Headers;
 import retrofit2.http.POST;
 
 public interface LoginJsonPlaceHolderApi {
-    @POST("login")
-    Call<LoginPost> createPost(@Body LoginPost loginPost);
-
-    @FormUrlEncoded
-    @POST("login")
-    Call<LoginPost> createPost(
-            @Field("username") String username,
-            @Field("password") String password
-    );
-
     @Headers({
             "x-api-key: 454041184B0240FBA3AACD15A1F7A8BB"
     })
