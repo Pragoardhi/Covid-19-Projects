@@ -1,6 +1,7 @@
 package com.example.covid19apps.Login;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -8,12 +9,16 @@ import android.util.Patterns;
 import android.widget.Button;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.covid19apps.HomeActivity;
 import com.example.covid19apps.R;
+import com.example.covid19apps.Session.SessionManagerUtil;
 import com.google.android.material.textfield.TextInputEditText;
 
+import java.util.Base64;
+import java.util.Calendar;
 import java.util.HashMap;
 
 import retrofit2.Call;
@@ -27,6 +32,7 @@ public class LoginActivity extends AppCompatActivity {
     TextInputEditText password;
     Button loginButton;
     private LoginJsonPlaceHolderApi loginJsonPlaceHolderApi;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +53,17 @@ public class LoginActivity extends AppCompatActivity {
                 Login();
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        boolean isAllowed = SessionManagerUtil.getInstance().isSessionActive(this, Calendar.getInstance().getTime());
+        if (isAllowed) {
+            Intent intent = new Intent(this, HomeActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+        }
+        super.onResume();
     }
 
     private Boolean validateEmail() {
@@ -93,10 +110,13 @@ public class LoginActivity extends AppCompatActivity {
         Call<LoginPost> call = loginJsonPlaceHolderApi.createPost(data);
 
         call.enqueue(new Callback<LoginPost>() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onResponse(Call<LoginPost> call, Response<LoginPost> response) {
                 if(response.code() == 200){
+                    startAndStoreSession();
                     Intent intent = new Intent(LoginActivity.this,HomeActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
                 }else{
                     Toast.makeText(LoginActivity.this,"Invalid email or password",Toast.LENGTH_SHORT).show();
@@ -108,5 +128,22 @@ public class LoginActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    private String generateToken(String email, String password){
+        String feeds = email+":"+password;
+        String token = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            token = Base64.getEncoder().encodeToString(feeds.getBytes());
+        } else {
+            token = feeds;
+        }
+        return token;
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private void startAndStoreSession(){
+        SessionManagerUtil.getInstance().storeUserToken(this, generateToken(email.getText().toString(), password.getText().toString()));
+        SessionManagerUtil.getInstance().startUserSession(this, 1); //expired ketika 1 hari tidak login
     }
 }
