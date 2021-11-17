@@ -1,11 +1,16 @@
 package com.example.covid19apps.Login;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.SystemClock;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Patterns;
+import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -20,6 +25,8 @@ import com.google.android.material.textfield.TextInputEditText;
 import java.util.Base64;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -31,14 +38,23 @@ public class LoginActivity extends AppCompatActivity {
     TextInputEditText email;
     TextInputEditText password;
     Button loginButton;
+    ProgressDialog pd;
     private LoginJsonPlaceHolderApi loginJsonPlaceHolderApi;
+    private Executor backgroundThread = Executors.newSingleThreadExecutor();
+    private Executor mainThread = new Executor() {
+        private Handler mainThreadHandler = new Handler(Looper.getMainLooper());
+        @Override
+        public void execute(Runnable command) {
+            mainThreadHandler.post(command);
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-
+        pd = new ProgressDialog(LoginActivity.this);
         email = findViewById(R.id.inputEmail);
         password = findViewById(R.id.inputPassword);
         loginButton = findViewById(R.id.loginButton);
@@ -49,6 +65,8 @@ public class LoginActivity extends AppCompatActivity {
 
         loginButton.setOnClickListener(v -> {
             Boolean check = validateEmail();
+            pd.setMessage("loading");
+            pd.show();
             if(check){
                 Login();
             }
@@ -114,10 +132,23 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<LoginPost> call, Response<LoginPost> response) {
                 if(response.code() == 200){
-                    startAndStoreSession();
-                    Intent intent = new Intent(LoginActivity.this,HomeActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    startActivity(intent);
+                    backgroundThread.execute(new Runnable() {
+                        @RequiresApi(api = Build.VERSION_CODES.O)
+                        @Override
+                        public void run() {
+                            SystemClock.sleep(3000);
+                            mainThread.execute(new Runnable() {
+                                @Override
+                                public void run() {
+                                    startAndStoreSession();
+                                    pd.cancel();
+                                    Intent intent = new Intent(LoginActivity.this,HomeActivity.class);
+                                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                    startActivity(intent);
+                                }
+                            });
+                        }
+                    });
                 }else{
                     Toast.makeText(LoginActivity.this,"Invalid email or password",Toast.LENGTH_SHORT).show();
                 }
