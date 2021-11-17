@@ -150,6 +150,7 @@ public class LoginActivity extends AppCompatActivity {
                         }
                     });
                 }else{
+                    pd.cancel();
                     Toast.makeText(LoginActivity.this,"Invalid email or password",Toast.LENGTH_SHORT).show();
                 }
             }
