@@ -17,4 +17,11 @@ public interface LoginJsonPlaceHolderApi {
     @FormUrlEncoded
     @POST("login")
     Call<LoginPost> createPost(@FieldMap Map<String,String> fields);
+
+    @Headers({
+            "x-api-key: 454041184B0240FBA3AACD15A1F7A8BB"
+    })
+    @FormUrlEncoded
+    @POST("login")
+    Call<Response> getResponse(@FieldMap Map<String,String> fields);
 }

@@ -9,15 +9,15 @@ import android.os.Looper;
 import android.os.SystemClock;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.util.Patterns;
-import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.covid19apps.HomeActivity;
+import com.example.covid19apps.Home.HomeActivity;
 import com.example.covid19apps.R;
 import com.example.covid19apps.Session.SessionManagerUtil;
 import com.google.android.material.textfield.TextInputEditText;
@@ -25,12 +25,12 @@ import com.google.android.material.textfield.TextInputEditText;
 import java.util.Base64;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 import retrofit2.Call;
 import retrofit2.Callback;
-import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -41,6 +41,8 @@ public class LoginActivity extends AppCompatActivity {
     ProgressDialog pd;
     private LoginJsonPlaceHolderApi loginJsonPlaceHolderApi;
     private Executor backgroundThread = Executors.newSingleThreadExecutor();
+
+    private static String Token;
     private Executor mainThread = new Executor() {
         private Handler mainThreadHandler = new Handler(Looper.getMainLooper());
         @Override
@@ -125,13 +127,13 @@ public class LoginActivity extends AppCompatActivity {
         data.put("username", emailInput);
         data.put("password",passwordInput);
 
-        Call<LoginPost> call = loginJsonPlaceHolderApi.createPost(data);
-
-        call.enqueue(new Callback<LoginPost>() {
-            @RequiresApi(api = Build.VERSION_CODES.O)
+        //getToken from username or password
+        Call<Response> call = loginJsonPlaceHolderApi.getResponse(data);
+        call.enqueue(new Callback<Response>() {
             @Override
-            public void onResponse(Call<LoginPost> call, Response<LoginPost> response) {
+            public void onResponse(Call<Response> call, retrofit2.Response<Response> response) {
                 if(response.code() == 200){
+                    Token = response.body().getToken();
                     backgroundThread.execute(new Runnable() {
                         @RequiresApi(api = Build.VERSION_CODES.O)
                         @Override
@@ -156,26 +158,26 @@ public class LoginActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<LoginPost> call, Throwable t) {
+            public void onFailure(Call<Response> call, Throwable t) {
 
             }
         });
     }
 
-    private String generateToken(String email, String password){
-        String feeds = email+":"+password;
-        String token = null;
+    private String generateToken(String token){
+        String feeds = token;
+        String newtoken = null;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            token = Base64.getEncoder().encodeToString(feeds.getBytes());
+            newtoken = Base64.getEncoder().encodeToString(feeds.getBytes());
         } else {
-            token = feeds;
+            newtoken = feeds;
         }
-        return token;
+        return newtoken;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void startAndStoreSession(){
-        SessionManagerUtil.getInstance().storeUserToken(this, generateToken(email.getText().toString(), password.getText().toString()));
+        SessionManagerUtil.getInstance().storeUserToken(this, generateToken(Token));
         SessionManagerUtil.getInstance().startUserSession(this, 1); //expired ketika 1 hari tidak login
     }
 }

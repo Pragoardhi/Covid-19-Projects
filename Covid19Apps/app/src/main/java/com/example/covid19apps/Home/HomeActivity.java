@@ -1,6 +1,4 @@
-package com.example.covid19apps;
-
-import androidx.appcompat.app.AppCompatActivity;
+package com.example.covid19apps.Home;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.covid19apps.Login.LoginActivity;
+import com.example.covid19apps.R;
 import com.example.covid19apps.Session.SessionActivity;
 import com.example.covid19apps.Session.SessionManagerUtil;
 
