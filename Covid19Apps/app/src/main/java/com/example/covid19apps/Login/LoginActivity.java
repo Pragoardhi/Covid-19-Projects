@@ -41,8 +41,9 @@ public class LoginActivity extends AppCompatActivity {
     ProgressDialog pd;
     private LoginJsonPlaceHolderApi loginJsonPlaceHolderApi;
     private Executor backgroundThread = Executors.newSingleThreadExecutor();
-
     private static String Token;
+    private static String Username;
+
     private Executor mainThread = new Executor() {
         private Handler mainThreadHandler = new Handler(Looper.getMainLooper());
         @Override
@@ -133,7 +134,9 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<Response> call, retrofit2.Response<Response> response) {
                 if(response.code() == 200){
+                    assert response.body() != null;
                     Token = response.body().getToken();
+                    Username = response.body().getData().getFullName();
                     backgroundThread.execute(new Runnable() {
                         @RequiresApi(api = Build.VERSION_CODES.O)
                         @Override
@@ -164,20 +167,10 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    private String generateToken(String token){
-        String feeds = token;
-        String newtoken = null;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            newtoken = Base64.getEncoder().encodeToString(feeds.getBytes());
-        } else {
-            newtoken = feeds;
-        }
-        return newtoken;
-    }
-
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void startAndStoreSession(){
-        SessionManagerUtil.getInstance().storeUserToken(this, generateToken(Token));
+        SessionManagerUtil.getInstance().storeUserToken(this, Token);
         SessionManagerUtil.getInstance().startUserSession(this, 1); //expired ketika 1 hari tidak login
+        SessionManagerUtil.getInstance().setUsername(this,Username);
     }
 }

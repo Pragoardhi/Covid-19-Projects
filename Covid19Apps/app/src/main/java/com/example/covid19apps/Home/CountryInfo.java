@@ -1,75 +1,48 @@
-
 package com.example.covid19apps.Home;
 
-import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-public class CountryInfo {
 
-    @SerializedName("_id")
-    @Expose
-    private Integer id;
-    @SerializedName("iso2")
-    @Expose
-    private String iso2;
-    @SerializedName("iso3")
-    @Expose
-    private String iso3;
-    @SerializedName("lat")
-    @Expose
-    private Integer lat;
-    @SerializedName("long")
-    @Expose
-    private Integer _long;
-    @SerializedName("flag")
-    @Expose
-    private String flag;
+public class CountryInfo{
 
-    public Integer getId() {
-        return id;
-    }
+	@SerializedName("flag")
+	private String flag;
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	@SerializedName("_id")
+	private int id;
 
-    public String getIso2() {
-        return iso2;
-    }
+	@SerializedName("iso2")
+	private String iso2;
 
-    public void setIso2(String iso2) {
-        this.iso2 = iso2;
-    }
+	@SerializedName("lat")
+	private double lat;
 
-    public String getIso3() {
-        return iso3;
-    }
+	@SerializedName("long")
+	private double jsonMemberLong;
 
-    public void setIso3(String iso3) {
-        this.iso3 = iso3;
-    }
+	@SerializedName("iso3")
+	private String iso3;
 
-    public Integer getLat() {
-        return lat;
-    }
+	public String getFlag(){
+		return flag;
+	}
 
-    public void setLat(Integer lat) {
-        this.lat = lat;
-    }
+	public int getId(){
+		return id;
+	}
 
-    public Integer getLong() {
-        return _long;
-    }
+	public String getIso2(){
+		return iso2;
+	}
 
-    public void setLong(Integer _long) {
-        this._long = _long;
-    }
+	public double getLat(){
+		return lat;
+	}
 
-    public String getFlag() {
-        return flag;
-    }
+	public double getJsonMemberLong(){
+		return jsonMemberLong;
+	}
 
-    public void setFlag(String flag) {
-        this.flag = flag;
-    }
-
+	public String getIso3(){
+		return iso3;
+	}
 }

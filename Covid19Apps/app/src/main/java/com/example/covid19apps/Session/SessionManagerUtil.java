@@ -3,6 +3,8 @@ package com.example.covid19apps.Session;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.example.covid19apps.Login.LoginActivity;
+
 import java.util.Calendar;
 import java.util.Date;
 
@@ -10,6 +12,7 @@ public class SessionManagerUtil {
     public static final String SESSION_PREFERENCE = "com.example.covid19apps.Session.SessionManagerUtil.SESSION_PREFERENCE";
     public static final String SESSION_TOKEN = "com.example.covid19apps.Session.SessionManagerUtil.SESSION_TOKEN";
     public static final String SESSION_EXPIRY_TIME = "com.example.covid19apps.Session.SessionManagerUtil.SESSION_EXPIRY_TIME";
+    public static final String SESSION_USERNAME = "com.example.covid19apps.Session.SessionManagerUtil.SESSION_USERNAME";
 
     private static SessionManagerUtil INSTANCE;
     public static SessionManagerUtil getInstance(){
@@ -62,6 +65,12 @@ public class SessionManagerUtil {
         SharedPreferences.Editor editor =
                 context.getSharedPreferences(SESSION_PREFERENCE, Context.MODE_PRIVATE).edit();
         editor.clear();
+        editor.apply();
+    }
+
+    public void setUsername(Context context, String username) {
+        SharedPreferences.Editor editor = context.getSharedPreferences(SESSION_PREFERENCE,Context.MODE_PRIVATE).edit();
+        editor.putString(SESSION_USERNAME,username);
         editor.apply();
     }
 }
