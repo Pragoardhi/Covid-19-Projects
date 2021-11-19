@@ -9,9 +9,7 @@ import android.util.Log;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.example.covid19apps.Home.RecyclerView.MyAPIEndPointInterFace;
-import com.example.covid19apps.Home.RecyclerView.RetrofitInstance;
-import com.example.covid19apps.Home.ResponseItem;
+import com.example.covid19apps.Home.API.ResponseItem;
 
 import java.io.IOException;
 import java.util.List;

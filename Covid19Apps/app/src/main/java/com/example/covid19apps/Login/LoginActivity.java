@@ -141,7 +141,6 @@ public class LoginActivity extends AppCompatActivity {
                         @RequiresApi(api = Build.VERSION_CODES.O)
                         @Override
                         public void run() {
-                            SystemClock.sleep(3000);
                             mainThread.execute(new Runnable() {
                                 @Override
                                 public void run() {

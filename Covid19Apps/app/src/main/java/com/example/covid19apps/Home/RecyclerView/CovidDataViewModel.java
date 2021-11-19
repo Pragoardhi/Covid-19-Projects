@@ -6,7 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
-import com.example.covid19apps.Home.ResponseItem;
+import com.example.covid19apps.Home.API.ResponseItem;
 
 import java.util.List;
 

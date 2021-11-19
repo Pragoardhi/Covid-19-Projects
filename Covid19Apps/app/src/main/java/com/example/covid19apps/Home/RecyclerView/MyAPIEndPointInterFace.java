@@ -1,6 +1,6 @@
 package com.example.covid19apps.Home.RecyclerView;
 
-import com.example.covid19apps.Home.ResponseItem;
+import com.example.covid19apps.Home.API.ResponseItem;
 
 import java.util.List;
 
