@@ -1,4 +1,4 @@
-package com.example.covid19apps.Home.Database;
+package com.example.covid19apps.Database;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
@@ -7,14 +7,18 @@ import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
-import com.example.covid19apps.Home.CovidData;
-
 import java.util.List;
 
 @Dao
 public interface CovidDataDao {
-    @Query("select * from coviddata")
+    @Query("SELECT * FROM coviddata ORDER BY COUNTRY")
     LiveData<List<CovidData>> getAllData();
+
+    @Query("DELETE FROM coviddata")
+    public void deleteTable();
+
+    @Query("SELECT * FROM coviddata WHERE ID = :id")
+    public LiveData<List<CovidData>> getData(int id);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(CovidData covidData);

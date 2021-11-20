@@ -1,4 +1,4 @@
-package com.example.covid19apps.Home;
+package com.example.covid19apps.Database;
 
 import android.content.Context;
 
@@ -6,8 +6,6 @@ import android.content.Context;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
-
-import com.example.covid19apps.Home.Database.CovidDataDao;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;

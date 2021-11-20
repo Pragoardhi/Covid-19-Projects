@@ -1,6 +1,6 @@
-package com.example.covid19apps.Home;
+package com.example.covid19apps.API;
 
-import com.example.covid19apps.Home.API.CovidDataAPI;
+import com.example.covid19apps.API.CovidDataAPI;
 
 import java.util.List;
 

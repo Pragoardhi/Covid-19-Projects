@@ -14,27 +14,25 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.covid19apps.Database.CovidDataViewModel;
 import com.example.covid19apps.R;
 import com.google.gson.Gson;
 
-public class RecyclerViewFragment extends Fragment {
+public class HomeRecyclerViewFragment extends Fragment {
 
     private CovidDataViewModel covidDataViewModel;
     private RecyclerView recyclerView;
     private CovidDataAdapter covidDataAdapter;
     private ProgressBar pb;
 
-    private final ItemClickableCallback itemClickableCallback = new ItemClickableCallback() {
-        @Override
-        public void onClick(View view, CovidData covidDataAPI) {
-            Gson gson = new Gson();
-            String userString = gson.toJson(covidDataAPI);
-            Toast.makeText(requireActivity(), userString, Toast.LENGTH_SHORT).show();
-        }
+    private final ItemClickableCallback itemClickableCallback = (view, covidDataAPI) -> {
+        Gson gson = new Gson();
+        String userString = gson.toJson(covidDataAPI);
+        Toast.makeText(requireActivity(), userString, Toast.LENGTH_SHORT).show();
     };
 
-    public static RecyclerViewFragment newInstance() {
-        return new RecyclerViewFragment();
+    public static HomeRecyclerViewFragment newInstance() {
+        return new HomeRecyclerViewFragment();
     }
 
     @Override
@@ -52,7 +50,6 @@ public class RecyclerViewFragment extends Fragment {
         covidDataAdapter = new CovidDataAdapter(itemClickableCallback);
         recyclerView.setAdapter(covidDataAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
         return view;
     }
 
@@ -60,8 +57,8 @@ public class RecyclerViewFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         covidDataViewModel.getAllData().observe(getViewLifecycleOwner(), covidListLiveData -> {
-            pb.setVisibility(View.INVISIBLE);
             if (covidListLiveData != null) {
+                pb.setVisibility(View.INVISIBLE);
                 covidDataAdapter.submitList(covidListLiveData);
             }
         });

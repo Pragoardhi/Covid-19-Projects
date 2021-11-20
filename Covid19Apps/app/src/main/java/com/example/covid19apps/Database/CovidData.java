@@ -1,11 +1,14 @@
-package com.example.covid19apps.Home;
+package com.example.covid19apps.Database;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.io.Serializable;
+
+@SuppressWarnings("serial")
 @Entity
-public class CovidData {
+public class CovidData implements Serializable {
     @PrimaryKey(autoGenerate = false)
     @ColumnInfo(name = "ID")
     public int id;

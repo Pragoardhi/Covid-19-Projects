@@ -1,6 +1,7 @@
 package com.example.covid19apps.Home;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,12 +15,14 @@ import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 
+import com.example.covid19apps.Database.CovidData;
+import com.example.covid19apps.HomeDetail.HomeDetailActivity;
 import com.example.covid19apps.R;
 import com.squareup.picasso.Picasso;
 
 class CovidDataAdapter extends ListAdapter<CovidData, CovidDataAdapter.ViewHolder> {
     private final ItemClickableCallback itemClickableCallback;
-
+    private Context context;
     protected CovidDataAdapter(@NonNull ItemClickableCallback userClickableCallback) {
         super(new AsyncDifferConfig.Builder<>(new DiffUtil.ItemCallback<CovidData>() {
             @Override
@@ -42,7 +45,7 @@ class CovidDataAdapter extends ListAdapter<CovidData, CovidDataAdapter.ViewHolde
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        Context context = parent.getContext();
+        context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.data_layout, parent, false);
         ViewHolder viewHolder = new ViewHolder(view);
@@ -75,7 +78,10 @@ class CovidDataAdapter extends ListAdapter<CovidData, CovidDataAdapter.ViewHolde
             int position = getAdapterPosition();
             if (position != RecyclerView.NO_POSITION) { // Check if an item was deleted, but the user clicked it before the UI removed it
                 CovidData covidData = getItem(position);
-                itemClickableCallback.onClick(v, covidData);
+                Intent intent = new Intent(context, HomeDetailActivity.class);
+                intent.putExtra("selectedCountry",covidData.id);
+                context.startActivity(intent);
+//                itemClickableCallback.onClick(v, covidData);
             }
         }
     }

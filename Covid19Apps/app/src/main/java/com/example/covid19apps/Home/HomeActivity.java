@@ -18,7 +18,7 @@ public class HomeActivity extends SessionActivity {
         setContentView(R.layout.activity_home);
 
         if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.secondActivityContainer, RecyclerViewFragment.newInstance()).commitNow();
+            getSupportFragmentManager().beginTransaction().replace(R.id.secondActivityContainer, HomeRecyclerViewFragment.newInstance()).commitNow();
         }
 
         Button logoutButton = findViewById(R.id.logoutButton);

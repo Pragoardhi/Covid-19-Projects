@@ -1,4 +1,4 @@
-package com.example.covid19apps.Home.API;
+package com.example.covid19apps.API;
 
 import java.util.List;
 
