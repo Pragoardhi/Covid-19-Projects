@@ -22,7 +22,7 @@ public class HomeRecyclerViewFragment extends Fragment {
 
     private CovidDataViewModel covidDataViewModel;
     private RecyclerView recyclerView;
-    private CovidDataAdapter covidDataAdapter;
+    private HomeRecyclerViewAdapter homeRecyclerViewAdapter;
     private ProgressBar pb;
 
     private final ItemClickableCallback itemClickableCallback = (view, covidDataAPI) -> {
@@ -47,8 +47,8 @@ public class HomeRecyclerViewFragment extends Fragment {
         View view = inflater.inflate(R.layout.recyclerview_container, container, false);
         pb = view.findViewById(R.id.rv_pb);
         recyclerView = view.findViewById(R.id.roomRecyclerView);
-        covidDataAdapter = new CovidDataAdapter(itemClickableCallback);
-        recyclerView.setAdapter(covidDataAdapter);
+        homeRecyclerViewAdapter = new HomeRecyclerViewAdapter(itemClickableCallback);
+        recyclerView.setAdapter(homeRecyclerViewAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         return view;
     }
@@ -59,7 +59,7 @@ public class HomeRecyclerViewFragment extends Fragment {
         covidDataViewModel.getAllData().observe(getViewLifecycleOwner(), covidListLiveData -> {
             if (covidListLiveData != null) {
                 pb.setVisibility(View.INVISIBLE);
-                covidDataAdapter.submitList(covidListLiveData);
+                homeRecyclerViewAdapter.submitList(covidListLiveData);
             }
         });
     }

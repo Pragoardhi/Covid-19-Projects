@@ -20,10 +20,10 @@ import com.example.covid19apps.HomeDetail.HomeDetailActivity;
 import com.example.covid19apps.R;
 import com.squareup.picasso.Picasso;
 
-class CovidDataAdapter extends ListAdapter<CovidData, CovidDataAdapter.ViewHolder> {
+class HomeRecyclerViewAdapter extends ListAdapter<CovidData, HomeRecyclerViewAdapter.ViewHolder> {
     private final ItemClickableCallback itemClickableCallback;
     private Context context;
-    protected CovidDataAdapter(@NonNull ItemClickableCallback userClickableCallback) {
+    protected HomeRecyclerViewAdapter(@NonNull ItemClickableCallback userClickableCallback) {
         super(new AsyncDifferConfig.Builder<>(new DiffUtil.ItemCallback<CovidData>() {
             @Override
             public boolean areItemsTheSame(@NonNull CovidData oldItem, @NonNull CovidData newItem) {
