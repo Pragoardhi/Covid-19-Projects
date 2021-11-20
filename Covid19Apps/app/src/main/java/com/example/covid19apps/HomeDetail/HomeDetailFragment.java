@@ -48,12 +48,12 @@ public class HomeDetailFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.country_detail, container, false);
         updated = view.findViewById(R.id.updated);
-        Calendar cal = Calendar.getInstance();
-        cal.setTimeInMillis(selectedCountryCovidData.updated * 1000);
-        Date date = cal.getInstance().getTime();
+//        Calendar cal = Calendar.getInstance();
+//        cal.setTimeInMillis(selectedCountryCovidData.updated * 1000);
+        Date date = new Date(selectedCountryCovidData.updated);
         DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
         String strDate = dateFormat.format(date);
-        updated.setText("Last Update: "+strDate);
+        updated.setText(strDate);
         country = view.findViewById(R.id.country);
         country.setText(selectedCountryCovidData.country.toUpperCase());
         cases = view.findViewById(R.id.cases);
