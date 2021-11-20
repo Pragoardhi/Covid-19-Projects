@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.covid19apps.Database.CovidDataViewModel;
 import com.example.covid19apps.R;
@@ -24,6 +25,8 @@ public class HomeRecyclerViewFragment extends Fragment {
     private RecyclerView recyclerView;
     private HomeRecyclerViewAdapter homeRecyclerViewAdapter;
     private ProgressBar pb;
+
+    SwipeRefreshLayout swipeRefreshLayout;
 
     private final ItemClickableCallback itemClickableCallback = (view, covidDataAPI) -> {
         Gson gson = new Gson();
@@ -39,6 +42,7 @@ public class HomeRecyclerViewFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         covidDataViewModel = new ViewModelProvider(requireActivity()).get(CovidDataViewModel.class);
+
     }
 
     @Override
@@ -46,6 +50,7 @@ public class HomeRecyclerViewFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.recyclerview_container, container, false);
         pb = view.findViewById(R.id.rv_pb);
+        swipeRefreshLayout = view.findViewById(R.id.refresh);
         recyclerView = view.findViewById(R.id.roomRecyclerView);
         homeRecyclerViewAdapter = new HomeRecyclerViewAdapter(itemClickableCallback);
         recyclerView.setAdapter(homeRecyclerViewAdapter);
@@ -63,6 +68,20 @@ public class HomeRecyclerViewFragment extends Fragment {
                     pb.setVisibility(View.INVISIBLE);
                 }
             }
+        });
+        swipeRefreshLayout.setOnRefreshListener(() -> {
+            homeRecyclerViewAdapter.submitList(null);
+            covidDataViewModel.getAllData().observe(getViewLifecycleOwner(), covidListLiveData -> {
+                if (covidListLiveData != null) {
+                    homeRecyclerViewAdapter.submitList(covidListLiveData);
+                    if(!homeRecyclerViewAdapter.getCurrentList().isEmpty()){
+                        pb.setVisibility(View.INVISIBLE);
+                    }
+                    System.out.println("masuk");
+                    homeRecyclerViewAdapter.notifyDataSetChanged();
+                    swipeRefreshLayout.setRefreshing(false);
+                }
+            });
         });
     }
 

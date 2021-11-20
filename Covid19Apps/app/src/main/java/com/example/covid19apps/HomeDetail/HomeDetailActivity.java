@@ -8,8 +8,9 @@ import android.os.Bundle;
 import com.example.covid19apps.Database.CovidData;
 import com.example.covid19apps.Home.HomeActivity;
 import com.example.covid19apps.R;
+import com.example.covid19apps.Session.SessionActivity;
 
-public class HomeDetailActivity extends AppCompatActivity {
+public class HomeDetailActivity extends SessionActivity {
 
     private CovidData countryCovidData;
     @Override

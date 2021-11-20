@@ -81,6 +81,7 @@ class HomeRecyclerViewAdapter extends ListAdapter<CovidData, HomeRecyclerViewAda
                 Intent intent = new Intent(context, HomeDetailActivity.class);
                 intent.putExtra("selectedCountry",covidData);
                 context.startActivity(intent);
+
 //                itemClickableCallback.onClick(v, covidData);
             }
         }
