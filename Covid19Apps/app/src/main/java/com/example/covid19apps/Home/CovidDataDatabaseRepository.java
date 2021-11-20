@@ -81,6 +81,7 @@ public class CovidDataDatabaseRepository {
                             for(int i =0; i<covidDataAPIList.size();i++){
                                 CovidData covidData = new CovidData();
                                 covidData.id = covidDataAPIList.get(i).getCountryInfo().getId();
+                                covidData.updated = covidDataAPIList.get(i).getUpdated();
                                 covidData.country = covidDataAPIList.get(i).getCountry();
                                 covidData.countryFlag = covidDataAPIList.get(i).getCountryInfo().getFlag();
                                 covidData.continent = covidDataAPIList.get(i).getContinent();
