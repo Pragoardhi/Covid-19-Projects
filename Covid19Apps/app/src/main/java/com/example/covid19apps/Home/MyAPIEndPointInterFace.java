@@ -1,6 +1,6 @@
-package com.example.covid19apps.Home.RecyclerView;
+package com.example.covid19apps.Home;
 
-import com.example.covid19apps.Home.API.ResponseItem;
+import com.example.covid19apps.Home.API.CovidDataAPI;
 
 import java.util.List;
 
@@ -11,5 +11,5 @@ public interface MyAPIEndPointInterFace {
     String BASE_URL= "https://corona.lmao.ninja/v2/";
 
     @GET("countries")
-    Call<List<ResponseItem>> getCovidData();
+    Call<List<CovidDataAPI>> getCovidData();
 }

@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 
-import com.example.covid19apps.Home.RecyclerView.RecyclerViewFragment;
 import com.example.covid19apps.Login.LoginActivity;
 import com.example.covid19apps.R;
 import com.example.covid19apps.Session.SessionActivity;

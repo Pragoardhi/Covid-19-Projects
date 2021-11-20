@@ -1,4 +1,4 @@
-package com.example.covid19apps.Home.RecyclerView;
+package com.example.covid19apps.Home;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

@@ -7,9 +7,9 @@ import com.google.gson.annotations.SerializedName;
 public class Response{
 
 	@SerializedName("Response")
-	private List<ResponseItem> response;
+	private List<CovidDataAPI> response;
 
-	public List<ResponseItem> getResponse(){
+	public List<CovidDataAPI> getResponse(){
 		return response;
 	}
 }

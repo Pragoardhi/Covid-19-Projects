@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
 import javax.annotation.Generated;
 
 @Generated("jsonschema2pojo")
-public class ResponseItem{
+public class CovidDataAPI {
 
 	@SerializedName("continent")
 	@Expose

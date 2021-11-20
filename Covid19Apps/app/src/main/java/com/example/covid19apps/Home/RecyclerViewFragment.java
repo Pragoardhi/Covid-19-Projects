@@ -1,4 +1,4 @@
-package com.example.covid19apps.Home.RecyclerView;
+package com.example.covid19apps.Home;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,7 +14,6 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.covid19apps.Home.API.ResponseItem;
 import com.example.covid19apps.R;
 import com.google.gson.Gson;
 
@@ -27,9 +26,9 @@ public class RecyclerViewFragment extends Fragment {
 
     private final ItemClickableCallback itemClickableCallback = new ItemClickableCallback() {
         @Override
-        public void onClick(View view, ResponseItem responseItem) {
+        public void onClick(View view, CovidData covidDataAPI) {
             Gson gson = new Gson();
-            String userString = gson.toJson(responseItem);
+            String userString = gson.toJson(covidDataAPI);
             Toast.makeText(requireActivity(), userString, Toast.LENGTH_SHORT).show();
         }
     };

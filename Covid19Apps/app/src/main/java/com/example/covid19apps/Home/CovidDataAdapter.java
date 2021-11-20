@@ -1,4 +1,4 @@
-package com.example.covid19apps.Home.RecyclerView;
+package com.example.covid19apps.Home;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -13,25 +13,25 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.covid19apps.Home.API.ResponseItem;
+
 import com.example.covid19apps.R;
 import com.squareup.picasso.Picasso;
 
-class CovidDataAdapter extends ListAdapter<ResponseItem, CovidDataAdapter.ViewHolder> {
+class CovidDataAdapter extends ListAdapter<CovidData, CovidDataAdapter.ViewHolder> {
     private final ItemClickableCallback itemClickableCallback;
 
     protected CovidDataAdapter(@NonNull ItemClickableCallback userClickableCallback) {
-        super(new AsyncDifferConfig.Builder<>(new DiffUtil.ItemCallback<ResponseItem>() {
+        super(new AsyncDifferConfig.Builder<>(new DiffUtil.ItemCallback<CovidData>() {
             @Override
-            public boolean areItemsTheSame(@NonNull ResponseItem oldItem, @NonNull ResponseItem newItem) {
-                return oldItem.getCountryInfo().getId() == newItem.getCountryInfo().getId();
+            public boolean areItemsTheSame(@NonNull CovidData oldItem, @NonNull CovidData newItem) {
+                return oldItem.id == newItem.id;
             }
 
             @Override
-            public boolean areContentsTheSame(@NonNull ResponseItem oldItem, @NonNull ResponseItem newItem) {
-                return oldItem.getCountryInfo().getId() == newItem.getCountryInfo().getId()
-                        && oldItem.getCountry().equals(newItem.getCountry())
-                        && oldItem.getContinent().equals(newItem.getContinent())
+            public boolean areContentsTheSame(@NonNull CovidData oldItem, @NonNull CovidData newItem) {
+                return oldItem.id == newItem.id
+                        && oldItem.country.equals(newItem.country)
+                        && oldItem.continent.equals(newItem.continent)
                         ;
             }
         }).build());
@@ -51,9 +51,9 @@ class CovidDataAdapter extends ListAdapter<ResponseItem, CovidDataAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.tvCountry.setText(getItem(position).getCountry());
-        holder.tvContinent.setText(getItem(position).getContinent());
-        Picasso.get().load(getItem(position).getCountryInfo().getFlag()).placeholder(R.drawable.flag_place_holder).error(R.drawable.flag_error_place_holder).into(holder.tvFlag);
+        holder.tvCountry.setText(getItem(position).country);
+        holder.tvContinent.setText(getItem(position).continent);
+        Picasso.get().load(getItem(position).countryFlag).placeholder(R.drawable.flag_place_holder).error(R.drawable.flag_error_place_holder).into(holder.tvFlag);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
@@ -74,8 +74,8 @@ class CovidDataAdapter extends ListAdapter<ResponseItem, CovidDataAdapter.ViewHo
         public void onClick(View v) {
             int position = getAdapterPosition();
             if (position != RecyclerView.NO_POSITION) { // Check if an item was deleted, but the user clicked it before the UI removed it
-                ResponseItem user = getItem(position);
-                itemClickableCallback.onClick(v, user);
+                CovidData covidData = getItem(position);
+                itemClickableCallback.onClick(v, covidData);
             }
         }
     }
