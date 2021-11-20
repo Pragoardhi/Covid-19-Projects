@@ -43,4 +43,10 @@ public class CovidData implements Serializable {
     @ColumnInfo(name = "TODAY_RECOVERED")
     public int todayRecovered;
 
+    @ColumnInfo(name = "ACTIVE")
+    public int active;
+
+    @ColumnInfo(name = "CRITICAL")
+    public int critical;
+
 }

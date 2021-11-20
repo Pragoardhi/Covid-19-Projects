@@ -90,6 +90,8 @@ public class CovidDataDatabaseRepository {
                                 covidData.todayDeath = covidDataAPIList.get(i).getTodayDeaths();
                                 covidData.recovered = covidDataAPIList.get(i).getRecovered();
                                 covidData.todayRecovered = covidDataAPIList.get(i).getTodayRecovered();
+                                covidData.active = covidDataAPIList.get(i).getActive();
+                                covidData.critical = covidDataAPIList.get(i).getCritical();
                                 insert(covidData);
                             }
                         }

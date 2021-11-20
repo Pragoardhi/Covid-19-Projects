@@ -18,7 +18,7 @@ public interface CovidDataDao {
     public void deleteTable();
 
     @Query("SELECT * FROM coviddata WHERE ID = :id")
-    public LiveData<List<CovidData>> getData(int id);
+    LiveData<List<CovidData>> getData(int id);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(CovidData covidData);

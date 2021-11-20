@@ -79,7 +79,7 @@ class HomeRecyclerViewAdapter extends ListAdapter<CovidData, HomeRecyclerViewAda
             if (position != RecyclerView.NO_POSITION) { // Check if an item was deleted, but the user clicked it before the UI removed it
                 CovidData covidData = getItem(position);
                 Intent intent = new Intent(context, HomeDetailActivity.class);
-                intent.putExtra("selectedCountry",covidData.id);
+                intent.putExtra("selectedCountry",covidData);
                 context.startActivity(intent);
 //                itemClickableCallback.onClick(v, covidData);
             }

@@ -58,8 +58,10 @@ public class HomeRecyclerViewFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         covidDataViewModel.getAllData().observe(getViewLifecycleOwner(), covidListLiveData -> {
             if (covidListLiveData != null) {
-                pb.setVisibility(View.INVISIBLE);
                 homeRecyclerViewAdapter.submitList(covidListLiveData);
+                if(!homeRecyclerViewAdapter.getCurrentList().isEmpty()){
+                    pb.setVisibility(View.INVISIBLE);
+                }
             }
         });
     }

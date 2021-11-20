@@ -11,11 +11,12 @@ import java.util.List;
 public class CovidDataViewModel extends AndroidViewModel {
     private CovidDataDatabaseRepository covidDataDatabaseRepository;
     private final LiveData<List<CovidData>> covidListLiveData;
-
+    private LiveData<List<CovidData>> countryCovidListLiveData;;
     public CovidDataViewModel(@NonNull Application application) {
         super(application);
         covidDataDatabaseRepository = new CovidDataDatabaseRepository(application);
         covidListLiveData = covidDataDatabaseRepository.getAllData();
+
     }
 
     public LiveData<List<CovidData>> getAllData(){
