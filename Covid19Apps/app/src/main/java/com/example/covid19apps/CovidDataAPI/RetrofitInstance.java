@@ -1,6 +1,5 @@
-package com.example.covid19apps.API;
+package com.example.covid19apps.CovidDataAPI;
 
-import com.example.covid19apps.API.MyAPIEndPointInterFace;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 

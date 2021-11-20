@@ -7,9 +7,9 @@ import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 
-import com.example.covid19apps.API.CovidDataAPI;
-import com.example.covid19apps.API.MyAPIEndPointInterFace;
-import com.example.covid19apps.API.RetrofitInstance;
+import com.example.covid19apps.CovidDataAPI.CovidDataAPI;
+import com.example.covid19apps.CovidDataAPI.MyAPIEndPointInterFace;
+import com.example.covid19apps.CovidDataAPI.RetrofitInstance;
 
 import java.io.IOException;
 import java.util.List;
