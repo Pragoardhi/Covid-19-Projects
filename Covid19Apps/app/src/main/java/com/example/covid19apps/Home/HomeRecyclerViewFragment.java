@@ -50,7 +50,6 @@ public class HomeRecyclerViewFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.recyclerview_container, container, false);
         pb = view.findViewById(R.id.rv_pb);
-        swipeRefreshLayout = view.findViewById(R.id.refresh);
         recyclerView = view.findViewById(R.id.roomRecyclerView);
         homeRecyclerViewAdapter = new HomeRecyclerViewAdapter(itemClickableCallback);
         recyclerView.setAdapter(homeRecyclerViewAdapter);
@@ -68,20 +67,6 @@ public class HomeRecyclerViewFragment extends Fragment {
                     pb.setVisibility(View.INVISIBLE);
                 }
             }
-        });
-        swipeRefreshLayout.setOnRefreshListener(() -> {
-            homeRecyclerViewAdapter.submitList(null);
-            covidDataViewModel.getAllData().observe(getViewLifecycleOwner(), covidListLiveData -> {
-                if (covidListLiveData != null) {
-                    homeRecyclerViewAdapter.submitList(covidListLiveData);
-                    if(!homeRecyclerViewAdapter.getCurrentList().isEmpty()){
-                        pb.setVisibility(View.INVISIBLE);
-                    }
-                    System.out.println("masuk");
-                    homeRecyclerViewAdapter.notifyDataSetChanged();
-                    swipeRefreshLayout.setRefreshing(false);
-                }
-            });
         });
     }
 
