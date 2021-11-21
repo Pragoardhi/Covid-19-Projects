@@ -14,7 +14,7 @@
     <fragment
         android:id="@+id/nav_favorite"
         android:name="com.example.covid19apps.Navbar.ui.favorite.GalleryFragment"
-        android:label="@string/menu_gallery"
+        android:label="Bookmark Country"
         tools:layout="@layout/fragment_gallery" />
 
 <!--    <fragment-->
