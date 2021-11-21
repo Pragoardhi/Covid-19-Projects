@@ -59,6 +59,7 @@ class HomeRecyclerViewAdapter extends ListAdapter<CovidData, HomeRecyclerViewAda
         Picasso.get().load(getItem(position).countryFlag).placeholder(R.drawable.flag_place_holder).error(R.drawable.flag_error_place_holder).into(holder.tvFlag);
     }
 
+
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         TextView tvCountry;

@@ -13,6 +13,7 @@ public class SessionManagerUtil {
     public static final String SESSION_TOKEN = "com.example.covid19apps.Session.SessionManagerUtil.SESSION_TOKEN";
     public static final String SESSION_EXPIRY_TIME = "com.example.covid19apps.Session.SessionManagerUtil.SESSION_EXPIRY_TIME";
     public static final String SESSION_USERNAME = "com.example.covid19apps.Session.SessionManagerUtil.SESSION_USERNAME";
+    public static final String SESSION_EMAIL = "com.example.covid19apps.Session.SessionManagerUtil.SESSION_EMAIL";
 
     private static SessionManagerUtil INSTANCE;
     public static SessionManagerUtil getInstance(){
@@ -57,6 +58,16 @@ public class SessionManagerUtil {
                 .getString(SESSION_TOKEN, "");
     }
 
+    public String getSessionUsername(Context context){
+        return context.getSharedPreferences(SESSION_PREFERENCE, Context.MODE_PRIVATE)
+                .getString(SESSION_USERNAME, "Missing");
+    }
+
+    public String getSessionEmail(Context context){
+        return context.getSharedPreferences(SESSION_PREFERENCE, Context.MODE_PRIVATE)
+                .getString(SESSION_EMAIL, "Missing");
+    }
+
     public void endUserSession(Context context){
         clearStoredData(context);
     }
@@ -71,6 +82,12 @@ public class SessionManagerUtil {
     public void setUsername(Context context, String username) {
         SharedPreferences.Editor editor = context.getSharedPreferences(SESSION_PREFERENCE,Context.MODE_PRIVATE).edit();
         editor.putString(SESSION_USERNAME,username);
+        editor.apply();
+    }
+
+    public void setEmail(Context context, String email){
+        SharedPreferences.Editor editor = context.getSharedPreferences(SESSION_PREFERENCE,Context.MODE_PRIVATE).edit();
+        editor.putString(SESSION_EMAIL,email);
         editor.apply();
     }
 }

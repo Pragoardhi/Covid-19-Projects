@@ -6,10 +6,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.os.SystemClock;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.util.Patterns;
 import android.widget.Button;
 import android.widget.Toast;
@@ -18,14 +16,15 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.covid19apps.Home.HomeActivity;
+import com.example.covid19apps.LoginDataAPI.LoginJsonPlaceHolderApi;
+import com.example.covid19apps.LoginDataAPI.Response;
+import com.example.covid19apps.Navbar.NavbarActivity;
 import com.example.covid19apps.R;
 import com.example.covid19apps.Session.SessionManagerUtil;
 import com.google.android.material.textfield.TextInputEditText;
 
-import java.util.Base64;
 import java.util.Calendar;
 import java.util.HashMap;
-import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
@@ -43,6 +42,7 @@ public class LoginActivity extends AppCompatActivity {
     private Executor backgroundThread = Executors.newSingleThreadExecutor();
     private static String Token;
     private static String Username;
+    private static String Email;
 
     private Executor mainThread = new Executor() {
         private Handler mainThreadHandler = new Handler(Looper.getMainLooper());
@@ -80,7 +80,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onResume() {
         boolean isAllowed = SessionManagerUtil.getInstance().isSessionActive(this, Calendar.getInstance().getTime());
         if (isAllowed) {
-            Intent intent = new Intent(this, HomeActivity.class);
+            Intent intent = new Intent(this, NavbarActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
         }
@@ -137,6 +137,7 @@ public class LoginActivity extends AppCompatActivity {
                     assert response.body() != null;
                     Token = response.body().getToken();
                     Username = response.body().getData().getFullName();
+                    Email = response.body().getData().getEmail();
                     backgroundThread.execute(new Runnable() {
                         @RequiresApi(api = Build.VERSION_CODES.O)
                         @Override
@@ -146,7 +147,7 @@ public class LoginActivity extends AppCompatActivity {
                                 public void run() {
                                     startAndStoreSession();
                                     pd.cancel();
-                                    Intent intent = new Intent(LoginActivity.this,HomeActivity.class);
+                                    Intent intent = new Intent(LoginActivity.this, NavbarActivity.class);
                                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                     startActivity(intent);
 
@@ -172,5 +173,6 @@ public class LoginActivity extends AppCompatActivity {
         SessionManagerUtil.getInstance().storeUserToken(this, Token);
         SessionManagerUtil.getInstance().startUserSession(this, 1); //expired ketika 1 hari tidak login
         SessionManagerUtil.getInstance().setUsername(this,Username);
+        SessionManagerUtil.getInstance().setEmail(this,Email);
     }
 }

@@ -4,12 +4,22 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/Ardhi/AndroidStudioProjects/Covid-19-Projects/Covid19Apps/app/src/main/res/drawable/ic_baseline_arrow_forward_ios_24.xml" value="0.19427083333333334" />
+        <entry key="..\:/Users/Ardhi/AndroidStudioProjects/Covid-19-Projects/Covid19Apps/app/src/main/res/drawable/side_nav_bar.xml" value="0.1796875" />
         <entry key="..\:/Users/Ardhi/AndroidStudioProjects/Covid-19-Projects/Covid19Apps/app/src/main/res/layout/activity_home.xml" value="0.25407608695652173" />
         <entry key="..\:/Users/Ardhi/AndroidStudioProjects/Covid-19-Projects/Covid19Apps/app/src/main/res/layout/activity_home_detail.xml" value="0.20572916666666666" />
         <entry key="..\:/Users/Ardhi/AndroidStudioProjects/Covid-19-Projects/Covid19Apps/app/src/main/res/layout/activity_login.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/Ardhi/AndroidStudioProjects/Covid-19-Projects/Covid19Apps/app/src/main/res/layout/activity_navbar.xml" value="0.30842391304347827" />
+        <entry key="..\:/Users/Ardhi/AndroidStudioProjects/Covid-19-Projects/Covid19Apps/app/src/main/res/layout/app_bar_navbar.xml" value="0.30842391304347827" />
+        <entry key="..\:/Users/Ardhi/AndroidStudioProjects/Covid-19-Projects/Covid19Apps/app/src/main/res/layout/content_navbar.xml" value="0.22" />
         <entry key="..\:/Users/Ardhi/AndroidStudioProjects/Covid-19-Projects/Covid19Apps/app/src/main/res/layout/country_detail.xml" value="0.33" />
         <entry key="..\:/Users/Ardhi/AndroidStudioProjects/Covid-19-Projects/Covid19Apps/app/src/main/res/layout/data_layout.xml" value="0.5" />
+        <entry key="..\:/Users/Ardhi/AndroidStudioProjects/Covid-19-Projects/Covid19Apps/app/src/main/res/layout/fragment_gallery.xml" value="0.30842391304347827" />
+        <entry key="..\:/Users/Ardhi/AndroidStudioProjects/Covid-19-Projects/Covid19Apps/app/src/main/res/layout/fragment_home.xml" value="0.30842391304347827" />
+        <entry key="..\:/Users/Ardhi/AndroidStudioProjects/Covid-19-Projects/Covid19Apps/app/src/main/res/layout/fragment_slideshow.xml" value="0.30842391304347827" />
+        <entry key="..\:/Users/Ardhi/AndroidStudioProjects/Covid-19-Projects/Covid19Apps/app/src/main/res/layout/nav_header_navbar.xml" value="0.30842391304347827" />
         <entry key="..\:/Users/Ardhi/AndroidStudioProjects/Covid-19-Projects/Covid19Apps/app/src/main/res/layout/recyclerview_container.xml" value="0.22" />
+        <entry key="..\:/Users/Ardhi/AndroidStudioProjects/Covid-19-Projects/Covid19Apps/app/src/main/res/menu/activity_main_drawer.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/Ardhi/AndroidStudioProjects/Covid-19-Projects/Covid19Apps/app/src/main/res/menu/navbar.xml" value="0.25" />
         <entry key="..\:/Users/Ardhi/Covid19Apps/app/src/main/res/layout/activity_login.xml" value="0.33" />
         <entry key="..\:/Users/Ardhi/Covid19Apps/app/src/main/res/layout/activity_main.xml" value="0.33" />
       </map>

@@ -1,4 +1,4 @@
-package com.example.covid19apps.Login;
+package com.example.covid19apps.LoginDataAPI;
 
 import com.google.gson.annotations.SerializedName;
 

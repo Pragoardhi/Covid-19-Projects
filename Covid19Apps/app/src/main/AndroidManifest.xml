@@ -12,6 +12,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Covid19Apps">
         <activity
+            android:name=".Navbar.NavbarActivity"
+            android:exported="false"
+            android:label="@string/title_activity_navbar"
+            android:theme="@style/Theme.Covid19Apps.NoActionBar" />
+        <activity
             android:name=".HomeDetail.HomeDetailActivity"
             android:exported="false" />
         <activity

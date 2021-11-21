@@ -1,10 +1,16 @@
 package com.example.covid19apps.Home;
 
+import android.app.SearchManager;
+import android.content.Context;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -26,7 +32,6 @@ public class HomeRecyclerViewFragment extends Fragment {
     private HomeRecyclerViewAdapter homeRecyclerViewAdapter;
     private ProgressBar pb;
 
-    SwipeRefreshLayout swipeRefreshLayout;
 
     private final ItemClickableCallback itemClickableCallback = (view, covidDataAPI) -> {
         Gson gson = new Gson();
@@ -42,7 +47,7 @@ public class HomeRecyclerViewFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         covidDataViewModel = new ViewModelProvider(requireActivity()).get(CovidDataViewModel.class);
-
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -60,15 +65,44 @@ public class HomeRecyclerViewFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        pb.setVisibility(View.VISIBLE);
+        resetData();
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        inflater.inflate(R.menu.navbar,menu);
+        super.onCreateOptionsMenu(menu, inflater);
+        SearchManager sm = (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
+        SearchView sv = (SearchView) menu.findItem(R.id.search).getActionView();
+        sv.setSearchableInfo(sm.getSearchableInfo(getActivity().getComponentName()));
+        sv.setIconifiedByDefault(true);
+        sv.setMaxWidth(Integer.MAX_VALUE);
+        sv.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                return true;
+            }
+            @Override
+            public boolean onQueryTextChange(String s) {
+                if (TextUtils.isEmpty(s)){
+                    resetData();
+                    return true;
+                }
+                return false;
+            }
+        });
+    }
+
+    private void resetData() {
         covidDataViewModel.getAllData().observe(getViewLifecycleOwner(), covidListLiveData -> {
             if (covidListLiveData != null) {
                 homeRecyclerViewAdapter.submitList(covidListLiveData);
+                homeRecyclerViewAdapter.notifyDataSetChanged();
                 if(!homeRecyclerViewAdapter.getCurrentList().isEmpty()){
                     pb.setVisibility(View.INVISIBLE);
                 }
             }
         });
     }
-
-
 }
