@@ -1,33 +1,33 @@
 package com.example.covid19apps.HomeDetail;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.covid19apps.Database.BookmarkData;
 import com.example.covid19apps.Database.CovidData;
-import com.example.covid19apps.Database.CovidDataDatabaseRepository;
 import com.example.covid19apps.Database.CovidDataViewModel;
 import com.example.covid19apps.R;
-import com.squareup.picasso.Picasso;
-
-import org.w3c.dom.Text;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 
 public class HomeDetailFragment extends Fragment {
+
     private static CovidData selectedCountryCovidData;
     private CovidDataViewModel covidDataViewModel;
+
 
     TextView updated;
     TextView country;
@@ -39,9 +39,19 @@ public class HomeDetailFragment extends Fragment {
     TextView todayRecovered;
     TextView death;
     TextView todayDeath;
+
+    Integer countryId;
+    FloatingActionButton addBookmark;
     public static HomeDetailFragment newInstance(CovidData countryCovidData){
         selectedCountryCovidData = countryCovidData;
         return new HomeDetailFragment();
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        covidDataViewModel = new ViewModelProvider(requireActivity()).get(CovidDataViewModel.class);
+        setHasOptionsMenu(true);
     }
 
     @Nullable
@@ -71,7 +81,33 @@ public class HomeDetailFragment extends Fragment {
         death.setText(selectedCountryCovidData.death+"");
         todayDeath = view.findViewById(R.id.todayDeath);
         todayDeath.setText("+"+selectedCountryCovidData.todayDeath+"");
+
+        countryId = selectedCountryCovidData.id;
+
+        addBookmark = view.findViewById(R.id.addBookmark);
+        addBookmark.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getActivity(),"Menambahkan ke bookmark",Toast.LENGTH_SHORT).show();
+                Log.e("masuk: ",countryId.toString());
+                BookmarkData bookmarkData = new BookmarkData();
+
+                bookmarkData.id = selectedCountryCovidData.id;
+                bookmarkData.updated = selectedCountryCovidData.updated;
+                bookmarkData.continent = selectedCountryCovidData.continent;
+                bookmarkData.country = selectedCountryCovidData.country;
+                bookmarkData.countryFlag = selectedCountryCovidData.countryFlag;
+                bookmarkData.cases = selectedCountryCovidData.cases;
+                bookmarkData.todayCases = selectedCountryCovidData.todayCases;
+                bookmarkData.death = selectedCountryCovidData.death;
+                bookmarkData.todayDeath = selectedCountryCovidData.todayDeath;
+                bookmarkData.recovered = selectedCountryCovidData.recovered;
+                bookmarkData.todayRecovered = selectedCountryCovidData.todayRecovered;
+                bookmarkData.active = selectedCountryCovidData.active;
+                bookmarkData.critical = selectedCountryCovidData.critical;
+                covidDataViewModel.insert(bookmarkData);
+            }
+        });
         return view;
     }
-
 }

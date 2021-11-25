@@ -1,4 +1,4 @@
-package com.example.covid19apps.Home;
+package com.example.covid19apps.Bookmark;
 
 import android.app.SearchManager;
 import android.content.Context;
@@ -21,29 +21,30 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.covid19apps.Database.BookmarkData;
 import com.example.covid19apps.Database.CovidData;
 import com.example.covid19apps.Database.CovidDataViewModel;
 import com.example.covid19apps.R;
 import com.google.gson.Gson;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class HomeRecyclerViewFragment extends Fragment {
+public class BookmarkRecyclerviewFragment extends Fragment {
 
     private CovidDataViewModel covidDataViewModel;
     private RecyclerView recyclerView;
-    private HomeRecyclerViewAdapter homeRecyclerViewAdapter;
+    private BookmarkRecyclerViewAdapter bookmarkRecyclerViewAdapter;
     private ProgressBar pb;
-
-
-    private final ItemClickableCallback itemClickableCallback = (view, covidDataAPI) -> {
+    private List<CovidData> covidDataList= new ArrayList<>();
+    private final BookmarkItemClickableCallback bookmarkItemClickableCallback = (view, covidDataAPI) -> {
         Gson gson = new Gson();
         String userString = gson.toJson(covidDataAPI);
         Toast.makeText(requireActivity(), userString, Toast.LENGTH_SHORT).show();
     };
 
-    public static HomeRecyclerViewFragment newInstance() {
-        return new HomeRecyclerViewFragment();
+    public static BookmarkRecyclerviewFragment newInstance() {
+        return new BookmarkRecyclerviewFragment();
     }
 
     @Override
@@ -56,11 +57,11 @@ public class HomeRecyclerViewFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.recyclerview_container, container, false);
-        pb = view.findViewById(R.id.rv_pb);
-        recyclerView = view.findViewById(R.id.roomRecyclerView);
-        homeRecyclerViewAdapter = new HomeRecyclerViewAdapter(itemClickableCallback);
-        recyclerView.setAdapter(homeRecyclerViewAdapter);
+        View view = inflater.inflate(R.layout.bookmark_recyclerview_container, container, false);
+        pb = view.findViewById(R.id.rv_pb_bookmark);
+        recyclerView = view.findViewById(R.id.roomRecyclerViewBookMark);
+        bookmarkRecyclerViewAdapter = new BookmarkRecyclerViewAdapter(bookmarkItemClickableCallback);
+        recyclerView.setAdapter(bookmarkRecyclerViewAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         return view;
     }
@@ -101,21 +102,27 @@ public class HomeRecyclerViewFragment extends Fragment {
 
     private void getResults(String s) {
         String queryText = "%" + s + "%";
-        covidDataViewModel.getCovidDataByCountry(queryText).observe(getViewLifecycleOwner(), (Observer<List<CovidData>>) covidData -> {
-            if (covidData == null) return;
-            homeRecyclerViewAdapter.submitList(covidData);
+        covidDataViewModel.getBookmarkDataByCountry(queryText).observe(getViewLifecycleOwner(), bookmarkData -> {
+            if (bookmarkData == null) return;
+            bookmarkRecyclerViewAdapter.submitList(bookmarkData);
+            bookmarkRecyclerViewAdapter.notifyDataSetChanged();
         });
     }
 
     private void resetData() {
-        covidDataViewModel.getAllData().observe(getViewLifecycleOwner(), covidListLiveData -> {
+
+        covidDataViewModel.getAllBookmarkData().observe(getViewLifecycleOwner(), covidListLiveData -> {
             if (covidListLiveData != null) {
-                homeRecyclerViewAdapter.submitList(covidListLiveData);
-                homeRecyclerViewAdapter.notifyDataSetChanged();
-                if(!homeRecyclerViewAdapter.getCurrentList().isEmpty()){
+                bookmarkRecyclerViewAdapter.submitList(covidListLiveData);
+                bookmarkRecyclerViewAdapter.notifyDataSetChanged();
+                if(!bookmarkRecyclerViewAdapter.getCurrentList().isEmpty()){
+                    pb.setVisibility(View.INVISIBLE);
+                }
+                else{
                     pb.setVisibility(View.INVISIBLE);
                 }
             }
         });
     }
+
 }

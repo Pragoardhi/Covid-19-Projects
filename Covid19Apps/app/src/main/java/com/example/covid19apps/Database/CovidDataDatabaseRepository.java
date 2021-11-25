@@ -22,7 +22,9 @@ public class CovidDataDatabaseRepository {
 
     private MyAPIEndPointInterFace API;
     private CovidDataDao covidDataDao;
+    private BookmarkDataDao bookmarkDataDao;
     private LiveData<List<CovidData>> covidListLiveData;
+    private LiveData<List<BookmarkData>> bookmarkCovidListLiveData;
 
     private final ExecutorService networkExecutor =
             Executors.newFixedThreadPool(4);
@@ -40,7 +42,9 @@ public class CovidDataDatabaseRepository {
         RetrofitInstance retrofitInstance = new RetrofitInstance();
         API = retrofitInstance.getAPI();
         covidDataDao = database.covidDataDao();
+        bookmarkDataDao = database.bookmarkDataDao();
         covidListLiveData = covidDataDao.getAllData();
+        bookmarkCovidListLiveData = bookmarkDataDao.getAllBookmarkData();
     }
 
     LiveData<List<CovidData>> getAllData(){
@@ -48,6 +52,11 @@ public class CovidDataDatabaseRepository {
             getCovidDataFromNetwork();
         }
         return covidListLiveData;
+    }
+
+
+    public LiveData<List<CovidData>> getCovidDataByCountry(String title){
+        return covidDataDao.getCovidDataByCountry(title);
     }
 
     void insert(CovidData covidData){
@@ -92,6 +101,7 @@ public class CovidDataDatabaseRepository {
                                 covidData.todayRecovered = covidDataAPIList.get(i).getTodayRecovered();
                                 covidData.active = covidDataAPIList.get(i).getActive();
                                 covidData.critical = covidDataAPIList.get(i).getCritical();
+//                                covidData.bookmark = 0;
                                 insert(covidData);
                             }
                         }
@@ -103,4 +113,29 @@ public class CovidDataDatabaseRepository {
         });
     }
 
+    public LiveData<List<BookmarkData>> getAllBookmarkData() {
+        return bookmarkCovidListLiveData;
+    }
+
+    public void insertBookmark(BookmarkData selectedCountryCovidData) {
+        mainThread.execute(new Runnable() {
+            @Override
+            public void run() {
+                bookmarkDataDao.insert(selectedCountryCovidData);
+            }
+        });
+    }
+
+    public LiveData<List<BookmarkData>> getBookmarkDataByCountry(String title) {
+        return bookmarkDataDao.getBookmarkDataByCountry(title);
+    }
+
+//    public void update(int id) {
+//        CovidDataDatabase.databaseWriteExecutor.execute(new Runnable() {
+//            @Override
+//            public void run() {
+//                covidDataDao.update(id);
+//            }
+//        });
+//    }
 }

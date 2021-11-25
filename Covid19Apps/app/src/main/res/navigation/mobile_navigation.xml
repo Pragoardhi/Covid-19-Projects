@@ -13,7 +13,7 @@
 
     <fragment
         android:id="@+id/nav_favorite"
-        android:name="com.example.covid19apps.Navbar.ui.favorite.GalleryFragment"
+        android:name="com.example.covid19apps.Bookmark.BookmarkRecyclerviewFragment"
         android:label="Bookmark Country"
         tools:layout="@layout/fragment_gallery" />
 

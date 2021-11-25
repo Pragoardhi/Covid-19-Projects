@@ -7,8 +7,8 @@ import androidx.room.PrimaryKey;
 import java.io.Serializable;
 
 @SuppressWarnings("serial")
-@Entity(tableName = "covid_data")
-public class CovidData implements Serializable {
+@Entity(tableName = "bookmark_data")
+public class BookmarkData implements Serializable {
     @PrimaryKey(autoGenerate = false)
     @ColumnInfo(name = "ID")
     public int id;
@@ -48,5 +48,5 @@ public class CovidData implements Serializable {
 
     @ColumnInfo(name = "CRITICAL")
     public int critical;
-
+    
 }
