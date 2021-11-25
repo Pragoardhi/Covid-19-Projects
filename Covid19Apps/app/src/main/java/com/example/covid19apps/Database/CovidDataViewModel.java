@@ -40,9 +40,10 @@ public class CovidDataViewModel extends AndroidViewModel {
     }
 
     public void insert(BookmarkData selectedCountryCovidData) {
-        System.out.println(selectedCountryCovidData.country);
         covidDataDatabaseRepository.insertBookmark(selectedCountryCovidData);
     }
 
-
+    public void deleteBookmark(int id) {
+        covidDataDatabaseRepository.deleteBookmark(id);
+    }
 }

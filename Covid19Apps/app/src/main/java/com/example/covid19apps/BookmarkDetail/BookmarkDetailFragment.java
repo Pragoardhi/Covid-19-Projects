@@ -92,22 +92,7 @@ public class BookmarkDetailFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getActivity(),selectedCountryCovidData.country+"telah dihapus dari bookmark",Toast.LENGTH_SHORT).show();
-//                BookmarkData bookmarkData = new BookmarkData();
-//
-//                bookmarkData.id = selectedCountryCovidData.id;
-//                bookmarkData.updated = selectedCountryCovidData.updated;
-//                bookmarkData.continent = selectedCountryCovidData.continent;
-//                bookmarkData.country = selectedCountryCovidData.country;
-//                bookmarkData.countryFlag = selectedCountryCovidData.countryFlag;
-//                bookmarkData.cases = selectedCountryCovidData.cases;
-//                bookmarkData.todayCases = selectedCountryCovidData.todayCases;
-//                bookmarkData.death = selectedCountryCovidData.death;
-//                bookmarkData.todayDeath = selectedCountryCovidData.todayDeath;
-//                bookmarkData.recovered = selectedCountryCovidData.recovered;
-//                bookmarkData.todayRecovered = selectedCountryCovidData.todayRecovered;
-//                bookmarkData.active = selectedCountryCovidData.active;
-//                bookmarkData.critical = selectedCountryCovidData.critical;
-//                covidDataViewModel.insert(bookmarkData);
+                covidDataViewModel.deleteBookmark(selectedCountryCovidData.id);
             }
         });
         return view;

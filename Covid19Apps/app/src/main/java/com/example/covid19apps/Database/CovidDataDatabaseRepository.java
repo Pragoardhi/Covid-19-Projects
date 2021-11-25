@@ -130,6 +130,10 @@ public class CovidDataDatabaseRepository {
         return bookmarkDataDao.getBookmarkDataByCountry(title);
     }
 
+    public void deleteBookmark(int id) {
+        bookmarkDataDao.deleteBookmark(id);
+    }
+
 //    public void update(int id) {
 //        CovidDataDatabase.databaseWriteExecutor.execute(new Runnable() {
 //            @Override

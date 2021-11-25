@@ -17,9 +17,10 @@ public interface BookmarkDataDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(BookmarkData bookmarkData);
 
-    @Delete
-    void delete(CovidData covidData);
 
     @Query("SELECT * from bookmark_data where COUNTRY LIKE '%' || :country || '%'")
     LiveData<List<BookmarkData>> getBookmarkDataByCountry(String country);
+
+    @Query("DELETE FROM bookmark_data WHERE ID = :id")
+    void deleteBookmark(int id);
 }
