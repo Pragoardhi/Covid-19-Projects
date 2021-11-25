@@ -17,17 +17,9 @@ public class HomeActivity extends SessionActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-//        if (savedInstanceState == null) {
-//            getSupportFragmentManager().beginTransaction().replace(R.id.secondActivityContainer, HomeRecyclerViewFragment.newInstance()).commitNow();
-//        }
-
-        Button logoutButton = findViewById(R.id.logoutButton);
-        logoutButton.setOnClickListener(v -> {
-            SessionManagerUtil.getInstance().endUserSession(HomeActivity.this);
-            Intent intent = new Intent(HomeActivity.this, LoginActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(intent);
-        });
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.secondActivityContainer, HomeRecyclerViewFragment.newInstance()).commitNow();
+        }
 
     }
 

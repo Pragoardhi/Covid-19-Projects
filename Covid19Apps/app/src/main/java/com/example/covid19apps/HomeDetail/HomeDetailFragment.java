@@ -1,5 +1,7 @@
 package com.example.covid19apps.HomeDetail;
 
+import android.app.NativeActivity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,6 +20,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.covid19apps.Database.BookmarkData;
 import com.example.covid19apps.Database.CovidData;
 import com.example.covid19apps.Database.CovidDataViewModel;
+import com.example.covid19apps.Home.HomeActivity;
 import com.example.covid19apps.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
