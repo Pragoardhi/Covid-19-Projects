@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.covid19apps.BookmarkDetail.BookmarkDetailActivity;
 import com.example.covid19apps.Database.BookmarkData;
 import com.example.covid19apps.HomeDetail.HomeDetailActivity;
 import com.example.covid19apps.R;
@@ -77,8 +78,8 @@ public class BookmarkRecyclerViewAdapter extends ListAdapter<BookmarkData, Bookm
             int position = getAdapterPosition();
             if (position != RecyclerView.NO_POSITION) { // Check if an item was deleted, but the user clicked it before the UI removed it
                 BookmarkData bookmarkData = getItem(position);
-                Intent intent = new Intent(context, HomeDetailActivity.class);
-                intent.putExtra("selectedCountry",bookmarkData);
+                Intent intent = new Intent(context, BookmarkDetailActivity.class);
+                intent.putExtra("selectedBookmarkCountry",bookmarkData);
                 context.startActivity(intent);
 
 //                itemClickableCallback.onClick(v, covidData);

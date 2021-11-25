@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Covid19Apps">
         <activity
+            android:name=".BookmarkDetail.BookmarkDetailActivity"
+            android:exported="false" />
+        <activity
             android:name=".Navbar.NavbarActivity"
             android:exported="false"
             android:label="@string/title_activity_navbar"

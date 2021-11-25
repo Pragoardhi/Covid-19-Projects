@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.example.covid19apps.BookmarkDetail.BookmarkDetailFragment;
 import com.example.covid19apps.Database.CovidData;
 import com.example.covid19apps.Home.HomeActivity;
 import com.example.covid19apps.R;
