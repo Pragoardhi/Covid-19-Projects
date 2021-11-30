@@ -103,7 +103,7 @@ public class HomeDetailFragment extends Fragment {
                         Toast.makeText(getActivity(),"Menambahkan ke bookmark",Toast.LENGTH_SHORT).show();
                         addBookmark.setImageResource(R.drawable.ic_baseline_check_24);
                         addBookmark.setEnabled(false);
-                        addBookmark.setBackgroundTintList(ColorStateList.valueOf(16842910));
+                        addBookmark.setBackgroundTintList(ColorStateList.valueOf(-11751600));
                         BookmarkData bookmarkData = new BookmarkData();
                         bookmarkData.id = selectedCountryCovidData.id;
                         bookmarkData.updated = selectedCountryCovidData.updated;
