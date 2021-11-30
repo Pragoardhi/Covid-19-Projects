@@ -73,6 +73,9 @@ public class LoginActivity extends AppCompatActivity {
             if(check){
                 Login();
             }
+            else{
+                pd.cancel();
+            }
         });
     }
 
