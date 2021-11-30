@@ -96,7 +96,7 @@ public class BookmarkDetailFragment extends Fragment {
                 removeBookmark.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(getActivity(),selectedCountryCovidData.country+"telah dihapus dari bookmark",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(),selectedCountryCovidData.country+" telah dihapus dari bookmark",Toast.LENGTH_SHORT).show();
                         removeBookmark.setImageResource(R.drawable.ic_baseline_check_24);
                         removeBookmark.setEnabled(false);
                         removeBookmark.setBackgroundTintList(ColorStateList.valueOf(-5103070));
