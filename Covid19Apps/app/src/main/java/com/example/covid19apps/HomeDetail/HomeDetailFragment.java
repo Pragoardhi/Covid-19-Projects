@@ -2,6 +2,7 @@ package com.example.covid19apps.HomeDetail;
 
 import android.app.NativeActivity;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -101,8 +102,9 @@ public class HomeDetailFragment extends Fragment {
                     public void onClick(View v) {
                         Toast.makeText(getActivity(),"Menambahkan ke bookmark",Toast.LENGTH_SHORT).show();
                         addBookmark.setImageResource(R.drawable.ic_baseline_check_24);
+                        addBookmark.setEnabled(false);
+                        addBookmark.setBackgroundTintList(ColorStateList.valueOf(16842910));
                         BookmarkData bookmarkData = new BookmarkData();
-
                         bookmarkData.id = selectedCountryCovidData.id;
                         bookmarkData.updated = selectedCountryCovidData.updated;
                         bookmarkData.continent = selectedCountryCovidData.continent;

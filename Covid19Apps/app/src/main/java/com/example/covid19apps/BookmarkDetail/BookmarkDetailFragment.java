@@ -1,6 +1,7 @@
 package com.example.covid19apps.BookmarkDetail;
 
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -97,6 +98,8 @@ public class BookmarkDetailFragment extends Fragment {
                     public void onClick(View v) {
                         Toast.makeText(getActivity(),selectedCountryCovidData.country+"telah dihapus dari bookmark",Toast.LENGTH_SHORT).show();
                         removeBookmark.setImageResource(R.drawable.ic_baseline_check_24);
+                        removeBookmark.setEnabled(false);
+                        removeBookmark.setBackgroundTintList(ColorStateList.valueOf(-5103070));
                         covidDataViewModel.deleteBookmark(selectedCountryCovidData.id);
                     }
                 });
