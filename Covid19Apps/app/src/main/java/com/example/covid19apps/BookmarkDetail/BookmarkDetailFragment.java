@@ -106,6 +106,8 @@ public class BookmarkDetailFragment extends Fragment {
             }
             else{
                 removeBookmark.setImageResource(R.drawable.ic_baseline_check_24);
+                removeBookmark.setEnabled(false);
+                removeBookmark.setBackgroundTintList(ColorStateList.valueOf(-5103070));
             }
         });
 

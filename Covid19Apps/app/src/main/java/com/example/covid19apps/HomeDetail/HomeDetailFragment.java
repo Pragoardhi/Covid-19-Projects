@@ -123,6 +123,8 @@ public class HomeDetailFragment extends Fragment {
                 });
             }else{
                 addBookmark.setImageResource(R.drawable.ic_baseline_check_24);
+                addBookmark.setEnabled(false);
+                addBookmark.setBackgroundTintList(ColorStateList.valueOf(-11751600));
             }
 
         });
