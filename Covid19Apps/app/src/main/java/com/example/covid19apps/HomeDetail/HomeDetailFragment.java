@@ -70,7 +70,7 @@ public class HomeDetailFragment extends Fragment {
         View view = inflater.inflate(R.layout.country_detail, container, false);
         updated = view.findViewById(R.id.updated);
         Date date = new Date(selectedCountryCovidData.updated);
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
+        DateFormat dateFormat = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzzz yyyy");
         String strDate = dateFormat.format(date);
         updated.setText(strDate);
         country = view.findViewById(R.id.country);

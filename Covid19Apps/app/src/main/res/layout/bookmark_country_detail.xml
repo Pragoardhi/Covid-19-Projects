@@ -66,7 +66,7 @@
                 android:paddingBottom="8dp"
                 android:text="Okt 28 - 16.09 WIB"
                 android:textColor="@color/gray"
-                android:textSize="14sp"
+                android:textSize="10sp"
                 app:layout_constraintStart_toEndOf="@+id/cardViewBookmark"
                 app:layout_constraintTop_toBottomOf="@+id/countryBookmark" />
         </androidx.constraintlayout.widget.ConstraintLayout>

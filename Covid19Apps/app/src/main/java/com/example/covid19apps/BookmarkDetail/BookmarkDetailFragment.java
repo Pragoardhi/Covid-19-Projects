@@ -66,7 +66,7 @@ public class BookmarkDetailFragment extends Fragment {
         View view = inflater.inflate(R.layout.bookmark_country_detail, container, false);
         updated = view.findViewById(R.id.updatedBookmark);
         Date date = new Date(selectedCountryCovidData.updated);
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
+        DateFormat dateFormat = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzzz yyyy");
         String strDate = dateFormat.format(date);
         updated.setText(strDate);
         country = view.findViewById(R.id.countryBookmark);
