@@ -1,5 +1,6 @@
 package com.example.covid19apps.BookmarkDetail;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -12,6 +13,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.covid19apps.Database.BookmarkData;
@@ -40,7 +42,7 @@ public class BookmarkDetailFragment extends Fragment {
     TextView todayDeath;
 
     Integer countryId;
-    FloatingActionButton addBookmark;
+    FloatingActionButton removeBookmark;
     public static BookmarkDetailFragment newInstance(BookmarkData countryCovidData){
         selectedCountryCovidData = countryCovidData;
         return new BookmarkDetailFragment();
@@ -87,14 +89,23 @@ public class BookmarkDetailFragment extends Fragment {
 
         countryId = selectedCountryCovidData.id;
 
-        addBookmark = view.findViewById(R.id.deleteBookmark);
-        addBookmark.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getActivity(),selectedCountryCovidData.country+"telah dihapus dari bookmark",Toast.LENGTH_SHORT).show();
-                covidDataViewModel.deleteBookmark(selectedCountryCovidData.id);
+        removeBookmark = view.findViewById(R.id.deleteBookmark);
+        covidDataViewModel.getBookmarkDataByCountry(selectedCountryCovidData.country).observe(getViewLifecycleOwner(), bookmarkData -> {
+            if(bookmarkData != null || !bookmarkData.isEmpty()){
+                removeBookmark.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(getActivity(),selectedCountryCovidData.country+"telah dihapus dari bookmark",Toast.LENGTH_SHORT).show();
+                        removeBookmark.setImageResource(R.drawable.ic_baseline_check_24);
+                        covidDataViewModel.deleteBookmark(selectedCountryCovidData.id);
+                    }
+                });
+            }
+            else{
+                removeBookmark.setImageResource(R.drawable.ic_baseline_check_24);
             }
         });
+
         return view;
     }
 }

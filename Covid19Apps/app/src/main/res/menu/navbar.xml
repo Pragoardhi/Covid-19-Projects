@@ -2,11 +2,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item
-        android:id="@+id/profile"
-        android:icon="@drawable/ic_launcher_foreground"
-        android:title="@string/action_settings"
-        app:showAsAction="ifRoom"/>
 
     <item
         android:id="@+id/search"
@@ -14,4 +9,12 @@
         android:title="Search"
         app:showAsAction="ifRoom"
         app:actionViewClass="android.widget.SearchView"/>
+
+    <item
+        android:id="@+id/profile"
+        android:icon="@drawable/ic_baseline_directions_run_24"
+        android:title="@string/action_settings"
+        app:showAsAction="ifRoom"/>
+
+
 </menu>

@@ -94,29 +94,37 @@ public class HomeDetailFragment extends Fragment {
         countryId = selectedCountryCovidData.id;
 
         addBookmark = view.findViewById(R.id.addBookmark);
-        addBookmark.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getActivity(),"Menambahkan ke bookmark",Toast.LENGTH_SHORT).show();
+        covidDataViewModel.getBookmarkDataByCountry(selectedCountryCovidData.country).observe(getViewLifecycleOwner(), bookmarkData -> {
+            if (bookmarkData == null || bookmarkData.isEmpty()){
+                addBookmark.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(getActivity(),"Menambahkan ke bookmark",Toast.LENGTH_SHORT).show();
+                        addBookmark.setImageResource(R.drawable.ic_baseline_check_24);
+                        BookmarkData bookmarkData = new BookmarkData();
 
-                BookmarkData bookmarkData = new BookmarkData();
-
-                bookmarkData.id = selectedCountryCovidData.id;
-                bookmarkData.updated = selectedCountryCovidData.updated;
-                bookmarkData.continent = selectedCountryCovidData.continent;
-                bookmarkData.country = selectedCountryCovidData.country;
-                bookmarkData.countryFlag = selectedCountryCovidData.countryFlag;
-                bookmarkData.cases = selectedCountryCovidData.cases;
-                bookmarkData.todayCases = selectedCountryCovidData.todayCases;
-                bookmarkData.death = selectedCountryCovidData.death;
-                bookmarkData.todayDeath = selectedCountryCovidData.todayDeath;
-                bookmarkData.recovered = selectedCountryCovidData.recovered;
-                bookmarkData.todayRecovered = selectedCountryCovidData.todayRecovered;
-                bookmarkData.active = selectedCountryCovidData.active;
-                bookmarkData.critical = selectedCountryCovidData.critical;
-                covidDataViewModel.insert(bookmarkData);
+                        bookmarkData.id = selectedCountryCovidData.id;
+                        bookmarkData.updated = selectedCountryCovidData.updated;
+                        bookmarkData.continent = selectedCountryCovidData.continent;
+                        bookmarkData.country = selectedCountryCovidData.country;
+                        bookmarkData.countryFlag = selectedCountryCovidData.countryFlag;
+                        bookmarkData.cases = selectedCountryCovidData.cases;
+                        bookmarkData.todayCases = selectedCountryCovidData.todayCases;
+                        bookmarkData.death = selectedCountryCovidData.death;
+                        bookmarkData.todayDeath = selectedCountryCovidData.todayDeath;
+                        bookmarkData.recovered = selectedCountryCovidData.recovered;
+                        bookmarkData.todayRecovered = selectedCountryCovidData.todayRecovered;
+                        bookmarkData.active = selectedCountryCovidData.active;
+                        bookmarkData.critical = selectedCountryCovidData.critical;
+                        covidDataViewModel.insert(bookmarkData);
+                    }
+                });
+            }else{
+                addBookmark.setImageResource(R.drawable.ic_baseline_check_24);
             }
+
         });
+
         return view;
     }
 
